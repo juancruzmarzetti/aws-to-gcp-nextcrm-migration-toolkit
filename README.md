@@ -5,8 +5,15 @@ App: https://github.com/juancruzmarzetti/nextcrm-app-fork
 
 ------
 
-## Reference of final structure of this repo:
+## Target repository structure
 
+This is the planned structure for the DevOps / IaC / Migration Toolkit.  
+The repository is organized to keep AWS source infrastructure, GCP target infrastructure, automation scripts, Ansible configuration and CI/CD workflows clearly separated.
+
+<details>
+<summary>View repository tree</summary>
+
+```text
 aws-to-gcp-nextcrm-migration-toolkit/
 │
 ├── README.md
@@ -87,3 +94,6 @@ aws-to-gcp-nextcrm-migration-toolkit/
 │   └── docker-compose.toolkit.yml
 │
 └── .gitlab-ci.yml
+```
+
+</details>
