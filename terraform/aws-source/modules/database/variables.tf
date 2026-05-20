@@ -14,8 +14,8 @@ variable "db_instance_type" {
   default     = "db.t3.micro"
 }
 
-variable "subnet_group_name" {
-  description = "Subnet group name where the database instance will be deployed."
+variable "private_subnet_ids" {
+  description = "Ids of the private subnets where the database instance will be deployed."
   type        = string
 }
 
@@ -40,4 +40,9 @@ variable "db_name" {
   description = "Name of the database to create."
   type        = string
   default     = "nextcrm"
+}
+
+variable "private_subnet_ids" {
+  description = "List of private subnet IDs for the database subnet group."
+  type        = list(string)
 }
