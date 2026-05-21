@@ -1,0 +1,13 @@
+---
+- name: Deploy NextCRM AWS source environment
+  hosts: nextcrm_source
+  become: true
+
+  vars:
+    app_dir: /opt/nextcrm
+    nextcrm_repo_url: "https://github.com/juancruzmarzetti/nextcrm-app-fork.git"
+    nextcrm_repo_version: "main"
+
+  roles:
+    - docker
+    - nextcrm

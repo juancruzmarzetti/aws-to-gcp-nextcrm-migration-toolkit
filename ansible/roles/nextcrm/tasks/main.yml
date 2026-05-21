@@ -1,0 +1,50 @@
+---
+- name: Create application directory
+  file:
+    path: "{{ app_dir }}"
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: "0755"
+
+- name: Clone NextCRM fork
+  git:
+    repo: "{{ nextcrm_repo_url }}"
+    dest: "{{ app_dir }}"
+    version: "{{ nextcrm_repo_version }}"
+    force: true
+
+- name: Enable required PostgreSQL extensions
+  include_tasks: database.yml
+
+- name: Render AWS environment file
+  template:
+    src: nextcrm.env.aws.j2
+    dest: "{{ app_dir }}/.env.aws"
+    owner: ubuntu
+    group: ubuntu
+    mode: "0600"
+  no_log: true
+
+- name: Render AWS Docker Compose file
+  template:
+    src: docker-compose.aws.yml.j2
+    dest: "{{ app_dir }}/docker-compose.aws.yml"
+    owner: ubuntu
+    group: ubuntu
+    mode: "0644"
+
+- name: Build and start NextCRM
+  command: docker compose -f docker-compose.aws.yml up -d --build
+  args:
+    chdir: "{{ app_dir }}"
+
+- name: Wait for NextCRM to become available
+  uri:
+    url: "http://localhost:3000"
+    method: GET
+    status_code: 200
+  register: nextcrm_health
+  retries: 20
+  delay: 10
+  until: nextcrm_health.status == 200

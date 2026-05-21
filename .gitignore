@@ -1,0 +1,13 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+!*.tfvars.example
+
+# Local variable values
+terraform/aws-source/environments/dev/variablevalues.tfvars
+
+# Secrets / keys
+*.pem
+.env

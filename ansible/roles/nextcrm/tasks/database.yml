@@ -1,0 +1,17 @@
+---
+- name: Install PostgreSQL Python dependency
+  apt:
+    name:
+      - python3-psycopg2
+    state: present
+    update_cache: true
+
+- name: Enable pgvector extension on RDS
+  community.postgresql.postgresql_ext:
+    name: vector
+    db: "{{ db_name }}"
+    login_host: "{{ db_host }}"
+    login_user: "{{ db_username }}"
+    login_password: "{{ db_password }}"
+    state: present
+  no_log: true

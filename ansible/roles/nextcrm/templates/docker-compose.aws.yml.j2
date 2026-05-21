@@ -1,0 +1,31 @@
+services:
+  inngest:
+    image: inngest/inngest:latest
+    restart: unless-stopped
+    command: inngest dev -u http://app:3000/api/inngest
+    networks:
+      - nextcrm
+
+  app:
+    build:
+      context: /opt/nextcrm
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - /opt/nextcrm/.env.aws
+    depends_on:
+      - inngest
+    networks:
+      - nextcrm
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+networks:
+  nextcrm:
+    driver: bridge

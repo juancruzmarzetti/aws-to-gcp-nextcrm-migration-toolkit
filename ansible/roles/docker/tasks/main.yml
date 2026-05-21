@@ -1,0 +1,25 @@
+---
+- name: Install required system packages
+  apt:
+    name:
+      - git
+      - curl
+      - ca-certificates
+      - python3-pip
+      - python3-psycopg2
+      - docker.io
+      - docker-compose-plugin
+    state: present
+    update_cache: true
+
+- name: Ensure Docker service is enabled and running
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Add ubuntu user to docker group
+  user:
+    name: ubuntu
+    groups: docker
+    append: true
