@@ -17,7 +17,7 @@ private_subnet_cidrs = [
 ssh_cidr = "YOUR_PUBLIC_IP/32"
 
 instance_type = "t3.micro"
-key_name      = "your-existing-key-pair-name"
+key_name      = "nextcrm-aws-source-key"
 
 db_instance_type  = "db.t3.micro"
 db_engine_version = "16"
