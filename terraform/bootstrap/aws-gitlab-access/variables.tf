@@ -17,8 +17,9 @@ variable "environment" {
 }
 
 variable "gitlab_project_path" {
-  description = "GitLab project path allowed to assume the AWS role. Example: gitlabuser/gitlab-repo"
+  description = "GitLab project path allowed to assume the AWS role. Example: gitlab-repositories-group/gitlab-repo"
   type        = string
+  default     = "nextcrm-migration/aws-to-gcp-nextcrm-migration-toolkit"
 }
 
 variable "gitlab_branch" {
